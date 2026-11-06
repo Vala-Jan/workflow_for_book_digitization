@@ -1,0 +1,98 @@
+===============================================================================
+ PRACOVNÍ POSTUP - digitalizace knihy na Bookeye 3
+===============================================================================
+ Platí pro:  jpg2pdf 1.2.2
+ Datum:      2026-11-06
+
+ Pro obsluhu skeneru. Popisuje cestu od skenování po hotové PDF.
+
+
+-------------------------------------------------------------------------------
+ PŘEHLED
+-------------------------------------------------------------------------------
+
+   1. SKENOVÁNÍ    Bookeye 3 -> nový job ses-started_yyyy-mm-dd_
+          |        skeny se ukládají do images\ses-started_yyyy-mm-dd_\
+          |        (zde NIC NEMAZAT, ani špatné skeny)
+          |
+   2. SESTAVENÍ    ve workspace\scans\ založit složku yyyy-mm-dd a do ní
+          |        ZKOPÍROVAT (Ctrl+C, Ctrl+V) skeny jedné knihy z images
+          |
+   3. ÚPRAVA       ve workspace\scans\yyyy-mm-dd\ smazat špatné skeny,
+          |        oříznout první a poslední sken (obálka)
+          |
+   4. PDF          ve workspace dvojklikem spustit VYTVOŘIT PDF.bat
+
+
+ Pravidlo: 1 kniha = 1 složka ve scans\ = 1 PDF.
+ Pořadí stránek v PDF = pořadí podle čísla na konci názvu souboru.
+
+
+-------------------------------------------------------------------------------
+ 1. SKENOVÁNÍ
+-------------------------------------------------------------------------------
+
+ - Vytvořit nový job ses-started_yyyy-mm-dd_ (např. ses-started_2026-10-15_), job je vždy
+   pro jednu konkrétní knihu.
+ - Do jobu se vracím, dokud není kniha celá naskenovaná. Kniha se nemusí
+   naskenovat za jeden den.
+ - Skenovat v pořadí stránek knihy. Skener čísluje skeny sám
+   (REFERENCE00001, REFERENCE00002, ...) a podle tohoto čísla se pak řadí
+   stránky v PDF: menší číslo = dřív v PDF. Když udělám špatný sken naskenuji znova a špatný sken odstraním až ve složce scans.
+ - Ve složce images NIC nemazat ani neupravovat, k tomu slouží složka scans.
+
+
+-------------------------------------------------------------------------------
+ 2. SESTAVENÍ KNIHY
+-------------------------------------------------------------------------------
+
+ 1. Ve workspace\scans\ vytvořit novou složku ve tvaru RRRR-MM-DD
+    (např. 2026-10-16) = datum kopírování z images do scans.
+ 2. Z images ZKOPÍROVAT všechny skeny, které patří
+    k této knize.
+ 3. Zkontrolovat, že ve složce jsou skeny jen z jedné knihy.
+
+ Pozor:
+ - Do složky dávat jen soubory .jpg / .jpeg, žádné podsložky
+   (soubory v podsložkách se ignorují).
+ - Soubory NEPŘEJMENOVÁVAT - pořadí v PDF se řídí číslem v názvu.
+
+
+-------------------------------------------------------------------------------
+ 3. ÚPRAVA SKENŮ
+-------------------------------------------------------------------------------
+
+ Pracuje se jen ve workspace\scans\yyyy-mm-dd\, nikdy v images.
+
+ 1. Smazat špatné skeny (rozmazané, duplicitní, prázdné, chybné).
+    Chybějící čísla v řadě nevadí (např. 00005, 00006, 00009) - zbylé skeny
+    zůstanou ve správném pořadí.
+ 2. Oříznout skeny, kde je to potřeba (první a poslední = obálka).
+ 3. Ukládat zpět jako JPEG se STEJNÝM názvem souboru.
+
+
+-------------------------------------------------------------------------------
+ 4. VYTVOŘENÍ PDF
+-------------------------------------------------------------------------------
+
+ 1. Dvakrát kliknout na VYTVOŘIT PDF.bat.
+ 2. Ze seznamu vybrat číslo složky knihy. U složky, kde už PDF je,
+    se zobrazí [PDF uz existuje].
+ 3. Program vypíše pořadí skenů a chybějící čísla v řadě.
+    Zkontrolovat, že je to správná složka a pořadí sedí.
+ 4. Je-li vše v pořádku, potvrdit Y. Jinak N, opravit a spustit znovu.
+ 5. PDF se uloží do složky knihy: scans\yyyy-mm-dd\yyyy-mm-dd.pdf
+ 6. Program se zeptá, zda zpracovat další složku (Y/N).
+
+ Hlášky programu:
+ - "Chybejici cisla: ..."      jen informace, smazané skeny - v pořádku.
+ - "POZOR: ... bude prepsano"  PDF už existuje; Y ho nahradí novým.
+ - "VAROVANI: preskakuji ..."  soubor je poškozený, prázdný nebo to není
+                               JPEG - do PDF se nedostane. Zkontrolovat.
+ - "VAROVANI: ... nekonci cislem"  soubor byl přejmenován - zařadí se
+                               podle názvu, pořadí zkontrolovat.
+ - "... nelze zapsat"          PDF je otevřené v jiném programu - zavřít
+                               ho a spustit znovu.
+
+ Záznam o každém spuštění se ukládá do workspace\log\
+ (runner_RRRR-MM-DD_HHMMSS.txt).
